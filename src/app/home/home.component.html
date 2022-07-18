@@ -1,0 +1,15 @@
+<div class="container">
+    <h1>Browse all the products</h1>
+
+    <!-- So, to use input use  [] square bracket this is data binding -->
+    <app-products-view [products]="productList" [categories]="categories"></app-products-view>
+</div>
+
+<div class="container">
+    <hr>
+    <h2>Your product wishlist</h2>
+
+    <app-products-view [products]="wishListProducts" [categories]="categories">
+    </app-products-view>
+</div>
+

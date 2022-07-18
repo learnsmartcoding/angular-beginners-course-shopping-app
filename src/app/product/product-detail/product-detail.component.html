@@ -1,0 +1,73 @@
+<div class="containerr margin-all" *ngIf="product">
+    <div class="row">
+        <div class="col-md-4 margin-all">
+            <div class="row">
+                <div class="col-md-2 ">
+                    <div *ngFor="let prdImg of product.productImages" class="margin-top">
+                        <img class="card-img-top cursor" 
+                        src="data:{{prdImg.mime}};base64,{{prdImg.base64Image}}"
+                            (click)="setSelectedImage(prdImg)">
+                    </div>
+                </div>
+                <div class="col-md-10 margin-top">
+                    <div class="card" style="width: 28rem;" *ngIf="selectedPhoto">
+                        <img class="card-img-all"
+                            src="data:{{selectedPhoto.mime}};base64,{{selectedPhoto.base64Image}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3>{{product.name}}</h3>
+            <hr>
+            <div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <h4><span class="badge bg-secondary">{{getCategory(product.categoryId)}}</span></h4>
+
+                    </div>
+                    <div class="col-md-4">
+                        <p>Price: <b class="color-orange">{{product.price | currency:'USD'}}</b></p>
+                    </div>
+                </div>
+                <h4>About this item</h4>
+                <ul>
+                    <li *ngFor="let item of aboutThisItem">{{item}}</li>
+                </ul>
+                <hr>
+                <button class="btn btn-success">Add to cart</button>&nbsp;
+                <button class="btn btn-warning">Add to wishlist</button>
+            </div>
+        </div>
+        <div class="col-md-3 margin-top ">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">Consider these similar items</h5>
+                    <p class="card-text">Some of these products are similar to what you are currently looking.</p>
+                    <div class="row margin-top" *ngFor="let prd of filteredProducts">
+                        <div class="col-md-4">
+                            <div>
+                                <img class="card-img-top cursor"
+                                    src="data:{{prd.productImages[0].mime}};base64,{{prd.productImages[0].base64Image}}">
+                            </div>
+                        </div>
+                        <div class="col-md-8"><a [routerLink]="['/products/detail',prd.id]"
+                                routerLinkActive="router-link-active">{{prd.name}}</a>
+                            <br><button class="btn btn-outline-warning btn-sm" (click)="filterSimilarItems()"
+                                [routerLink]="['/products/detail',prd.id]" routerLinkActive="router-link-active">View
+                                Details</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<app-spinner *ngIf="!product"></app-spinner>

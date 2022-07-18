@@ -1,0 +1,53 @@
+<div class="container">
+
+    <table class="table table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Product</th>
+                <th>Product Name</th>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of filteredProducts" >
+                <td>
+                    <div style="width: 8rem;">
+                        <img class="card-img-top cursor"
+                            src="data:{{item.productImages[0].mime}};base64,{{item.productImages[0].base64Image}}">
+                    </div>
+                </td>
+                <td>
+                    
+                    <a [routerLink]="['/products/detail',item.id]" routerLinkActive="router-link-active">{{item.name}}</a>
+                    <br><button class="btn btn-outline-warning btn-sm" 
+                        [routerLink]="['/products/detail',item.id]" routerLinkActive="router-link-active">View
+                        Details</button>
+                </td>
+                <td>
+                    <div (click)="deleteWishlist(item.wishlistId)" class="cursor">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-trash-fill cursor" viewBox="0 0 16 16">
+                            <path
+                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                        </svg>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="!filteredProducts?.length">
+                <td colspan="3">
+                    <p>
+                        No wishlist items, please add to see here
+                    </p>
+                </td>
+            </tr>
+
+            <tr *ngIf="!products">
+                <td colspan="3">
+                    <app-spinner></app-spinner>
+                </td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+

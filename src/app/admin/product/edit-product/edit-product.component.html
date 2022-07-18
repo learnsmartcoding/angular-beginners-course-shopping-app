@@ -1,0 +1,95 @@
+<div class="container"><br>
+
+    <br><br>
+    <app-spinner *ngIf="!existingProduct"></app-spinner>
+    <div class="row" *ngIf="existingProduct">
+        <h3>Edit Product</h3><br>
+        <div class="col-md-8">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <app-display-errors [errors]="errors"></app-display-errors>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" formControlName="name" class="form-control" placeholder="Enter Product Name"
+                        [class.has-error]="control('name')?.errors">
+                    <app-label-error [control]="control('name')"></app-label-error>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="description">Product Descriptions</label>
+                    <div class="form-line">
+                        <textarea rows="10" [class.has-error]="control('descriptions')?.errors"
+                            formControlName="descriptions" class="form-control"
+                            placeholder="Enter descriptions of the product">
+                            </textarea>
+                        <app-label-error [control]="control('descriptions')"></app-label-error>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="description">Price</label>
+                            <div class="form-line">
+                                <input [class.has-error]="control('price')?.errors" formControlName="price"
+                                    class="form-control" placeholder="Enter price of the product">
+                                <app-label-error [control]="control('price')"></app-label-error>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="isActive">Select Category</label>
+                            <select [class.has-error]="control('categoryId')?.errors" class="form-control"
+                                formControlName="categoryId">
+                                <option value="-1">Select</option>
+                                <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                            </select>
+                            <app-label-error [control]="control('categoryId')"></app-label-error>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="isActive">Available since</label>
+                            <input type="date" class="form-control" formControlName="availableSince"
+                                [class.has-error]="control('availableSince')?.errors">
+                            <app-label-error [control]="control('availableSince')"></app-label-error>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success btn-block" type="submit">Save Product</button>
+                </div>
+            </form>
+            <app-spinner *ngIf="showSpinner"></app-spinner><br><br>
+        </div>
+        <div class="col-md-4">
+            <h5>Product images</h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="row">
+                        <div *ngFor="let prdImg of existingProduct.productImages" class="col-md-12">
+                            <img class="card-img-top cursor" src="data:{{prdImg.mime}};base64,{{prdImg.base64Image}}"
+                            (click)="setSelectedImage(prdImg)" >
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="margin-top"> 
+                        <div class="card" style="width: 22rem;" *ngIf="selectedPhoto">
+                            <img class="card-img-all"
+                                src="data:{{selectedPhoto.mime}};base64,{{selectedPhoto.base64Image}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <app-upload-product-image [productId]="productId"
+            (imageUploadCompleted)="imageUploadCompleted($event)"
+            ></app-upload-product-image>
+        </div>
+        <div>
+            <a class="nav-link" [routerLink]="['/admin/products/manage']">GO BACK</a>
+        </div>
+    </div>
+</div>

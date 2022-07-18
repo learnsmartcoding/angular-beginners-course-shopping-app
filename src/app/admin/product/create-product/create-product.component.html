@@ -1,0 +1,62 @@
+<!-- We will first build basic HTML that is for our form then we will add reactive forms attributes to it -->
+
+<div class="container">
+    <br>
+    <h3>Create Product</h3><br>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- has-error is css and will be set if we set true in right side. if control has error we set it -->
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" [class.has-error]="control('name')?.errors" formControlName="name" class="form-control"
+                placeholder="Enter Product Name">
+            <app-label-error [control]="control('name')"></app-label-error>
+        </div>
+        <div class="form-group">
+            <label for="descriptions">Product Descriptions</label>
+            <div class="form-line">
+                <textarea rows="10" formControlName="descriptions" [class.has-error]="control('descriptions')?.errors"
+                    class="form-control" placeholder="Enter descriptions of the product">
+                        </textarea>
+                <app-label-error [control]="control('descriptions')"></app-label-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="Price">Price</label>
+                    <div class="form-line">
+                        <input class="form-control" [class.has-error]="control('price')?.errors" formControlName="price"
+                            placeholder="Enter price of the product">
+                        <app-label-error [control]="control('price')"></app-label-error>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="categoryId">Select Category</label>
+                    <select class="form-control" formControlName="categoryId"
+                        [class.has-error]="control('categoryId')?.errors">
+                        <option value="-1">Select</option>
+                        <option *ngFor="let item of categories" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                    <app-label-error [control]="control('categoryId')"></app-label-error>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="availableSince">Available since</label>
+                    <input type="date" formControlName="availableSince"
+                        [class.has-error]="control('availableSince')?.errors" class="form-control">
+                    <app-label-error [control]="control('availableSince')"></app-label-error>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-success btn-block" type="submit">Save</button>
+    </form>
+    <app-spinner *ngIf="showSpinner"></app-spinner><br><br>
+    <br>
+    <div>
+        <a class="nav-link" [routerLink]="['/admin/products/manage']">GO BACK</a>
+    </div>
+</div>

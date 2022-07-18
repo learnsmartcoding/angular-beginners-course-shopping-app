@@ -1,0 +1,13 @@
+.margin-top {
+    margin-top: 25px;
+}
+ 
+.margin-all {
+    margin-top: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.color-orange {
+    color: orange;
+}

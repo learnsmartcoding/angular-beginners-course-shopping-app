@@ -1,0 +1,7 @@
+<div class="container margin-top">
+    <app-product-view-filter (onProductFilterChnaged)="emittedProducts($event)" [categories]="categories">
+    </app-product-view-filter>
+
+    <app-products-view [categories]="categories" [products]="products"></app-products-view>
+
+</div>
