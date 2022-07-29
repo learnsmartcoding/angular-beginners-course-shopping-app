@@ -1,30 +1,33 @@
-<app-spinner *ngIf="!products"></app-spinner>
-<div class="row" *ngIf="products">
-    <div class="col-md-3" *ngFor="let item of products">
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
-            <h6 class="border-bottom pb-2 mb-0">{{getCategoryName(item.categoryId)}}</h6>
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" *ngIf="item.productImages.length"
-                    src="data:{{item.productImages[0].mime}};base64,{{item.productImages[0].base64Image}}">
-                <img *ngIf="!item.productImages.length" class="card-img-top" src="../../../assets/lsc-logo-png.png">
-                <div class="card-body">
-                    <p class="card-text" [title]="item.name">{{getShortenTitle(item.name)}}</p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p>
-                                <button class="btn btn-outline-warning btn-sm"
-                                    [routerLink]="['/products/detail', item.id]"
-                                     routerLinkActive="router-link-active"
-                                    >View Details</button>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-outline-success btn-sm" (click)="addWishList(item)">Add to
-                                Wishlist</button>
+<div class="container">
+    <div class="row" *ngIf="products">
+        <div class="col-md-3" *ngFor="let item of products">
+            <div class="my-3 p-3 bg-body rounded shadow-sm">
+                <h6 class="border-bottom pb-2 mb-0">{{getCategory(item.categoryId)}}</h6>
+                <div class="card" style="width: 18rem;">
+
+                    <img *ngIf="item.productImages.length" class="card-img-top"
+                        src="data:{{item.productImages[0].mime}};base64,{{item.productImages[0].base64Image}}">
+                    <img *ngIf="!item.productImages.length" class="card-img-top"
+                        src="../../../assets/lsc-logo-png.png">
+                    <div class="card-body">
+                        <p class="card-text" [title]="item.name">{{getTitle(item.name)}}</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p>
+                                    <button class="btn btn-outline-warning btn-sm"
+                                        [routerLink]="['/products/detail',item.id]"
+                                        routerLinkActive="router-link-active">View Details</button>
+                                </p>
+                            </div>
+                            <div class="col-md-6"><button class="btn btn-outline-success btn-sm"
+                                    (click)="addWishList(item)">Add to Wishlist</button></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <p *ngIf="!products?.length">No products to show!</p>
+    <app-spinner *ngIf="!products"></app-spinner>
+
 </div>

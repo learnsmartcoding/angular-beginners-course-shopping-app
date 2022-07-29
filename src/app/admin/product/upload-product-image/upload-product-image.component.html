@@ -6,7 +6,6 @@
     <app-display-errors [errors]="errors"></app-display-errors>
     <div class="form-group">
         <!-- <label for="file">Choose File: </label>&nbsp; -->
-        <!-- any variable with # is called template variable and can be accessed sing viewchild -->
         <input type="file" #myInput formControlName="productImage" id="file" required class="form-control"
             (change)="handleFileInput($event.target)">
     </div>

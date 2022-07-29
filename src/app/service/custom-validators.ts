@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 function isEmptyInputValue(value: any): boolean {
   // we don't check for string here so it also works with arrays
@@ -113,7 +113,6 @@ export class CustomValidators {
     };
   }
 
-  //this method will find whether it has value and if it is not having then it returns error on the control
   static required(errorMessage: string | null = null): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       return isEmptyInputValue(control.value)

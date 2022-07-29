@@ -1,22 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ProductsViewComponent } from './products-view/products-view.component';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { LabelErrorComponent } from './label-error/label-error.component';
 import { DisplayErrorsComponent } from './display-errors/display-errors.component';
-
+import { LabelErrorComponent } from './label-error/label-error.component';
+import { ReplaceStringPipe } from './pipes/string-replace.pipe';
+import { ToPascalPipe } from './pipes/to-pascal.pipe';
 @NgModule({
-  imports: [CommonModule, FormsModule, RouterModule],
-  exports: [SpinnerComponent, ProductsViewComponent, LabelErrorComponent, DisplayErrorsComponent], //we need to export this component because we will import this module inn other module
-  declarations: [SpinnerComponent, ProductsViewComponent, LabelErrorComponent, DisplayErrorsComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule    
+  ],
+  exports: [ProductsViewComponent, SpinnerComponent,DisplayErrorsComponent, LabelErrorComponent, ReplaceStringPipe,ToPascalPipe],
+  declarations: [ProductsViewComponent, SpinnerComponent,DisplayErrorsComponent, LabelErrorComponent, ReplaceStringPipe,ToPascalPipe],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {}
-
-
-/*
-We learnt how to created Module/shared module and reuse components and we will see more examples
-similar to shared module, we now create product module
-*/

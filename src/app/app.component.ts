@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'lsc-essential-products';
+  isIframe = false;
+
+  
+  ngOnInit(): void {
+    this.isIframe = window !== window.parent && !window.opener;
+  }
 }

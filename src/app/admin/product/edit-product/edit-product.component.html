@@ -70,13 +70,13 @@
                     <div class="row">
                         <div *ngFor="let prdImg of existingProduct.productImages" class="col-md-12">
                             <img class="card-img-top cursor" src="data:{{prdImg.mime}};base64,{{prdImg.base64Image}}"
-                            (click)="setSelectedImage(prdImg)" >
+                                (click)="setSelectedImage(prdImg)">
                             <hr>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="margin-top"> 
+                    <div class="margin-top">
                         <div class="card" style="width: 22rem;" *ngIf="selectedPhoto">
                             <img class="card-img-all"
                                 src="data:{{selectedPhoto.mime}};base64,{{selectedPhoto.base64Image}}">
@@ -84,9 +84,8 @@
                     </div>
                 </div>
             </div>
-            <app-upload-product-image [productId]="productId"
-            (imageUploadCompleted)="imageUploadCompleted($event)"
-            ></app-upload-product-image>
+            <app-upload-product-image [productId]="productId" (imageUploadCompleted)="imageUploadCompleted($event)">
+            </app-upload-product-image>
         </div>
         <div>
             <a class="nav-link" [routerLink]="['/admin/products/manage']">GO BACK</a>

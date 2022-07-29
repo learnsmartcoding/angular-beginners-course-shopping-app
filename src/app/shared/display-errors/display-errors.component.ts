@@ -11,5 +11,5 @@ export class DisplayErrorsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-//this component will be used if we cant get what error is based on API response.
+
 }

@@ -1,19 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ProductsViewComponent } from '../shared/products-view/products-view.component';
+import { Routes, RouterModule } from '@angular/router';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { ProductViewContentComponent } from './product-view-content/product-view-content.component';
-import { ProductViewFilterComponent } from './product-view-filter/product-view-filter.component';
-import { ProductViewLayoutComponent } from './product-view-layout/product-view-layout.component';
+import { ProductsViewContentComponent } from './products-view-content/products-view-content.component';
+import { ProductsViewFilterComponent } from './products-view-filter/products-view-filter.component';
+import { ProductsViewLayoutComponent } from './products-view-layout/products-view-layout.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 
 const routes: Routes = [
-  { path: '', component: ProductViewLayoutComponent },
-  {
-    //this will translate to /product/details/23. productId is the variable name and important to note
-    path: 'detail/:productId',
-    component: ProductDetailComponent,
-  },
+  { path: '', component: ProductsViewLayoutComponent },
+  { path: 'detail/:productId', component: ProductDetailComponent },
   { path: 'wishlist', component: WishlistComponent },
 ];
 
@@ -24,9 +19,9 @@ const routes: Routes = [
 export class ProductRoutingModule {}
 
 export const routedComponents = [
-  ProductViewLayoutComponent,
+  ProductsViewLayoutComponent,
   ProductDetailComponent,
-  ProductViewFilterComponent,
-  ProductViewContentComponent,
-  WishlistComponent,
+  ProductsViewFilterComponent,
+  ProductsViewContentComponent,
+  WishlistComponent
 ];

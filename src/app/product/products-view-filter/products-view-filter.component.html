@@ -1,0 +1,31 @@
+<header class="p-3 mb-3 border-bottom">
+    <div class="">
+        <div class="row">                
+            <div class="col-md-12">
+                <div class="row g-3">
+                    <div class="col-sm-3">
+                        <select class="form-control" [(ngModel)]="selectedCategory"
+                        (ngModelChange)="categoryChanged($event)">
+                            <option value="-1">All Categories</option>
+                            <option *ngFor="let item of categories" value="{{item.id}}">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-7">
+                        <input type="search" class="form-control" placeholder="Search with product title..." aria-label="Search" [(ngModel)]="searchFilter"
+                        (ngModelChange)="searchChanged($event)">
+                      
+                    </div>   
+                    <div class="col-sm-2">
+                        <button type="button" class="btn btn-primary position-relative" [routerLink]="['/products/wishlist']" routerLinkActive="router-link-active" >
+                            Product Wishlist
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              {{wishListCount}}+
+                              <span class="visually-hidden">unread messages</span>
+                            </span>
+                          </button>
+                    </div>                 
+                  </div>
+            </div>
+        </div>
+    </div>
+</header>

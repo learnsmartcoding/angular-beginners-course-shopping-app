@@ -4,8 +4,7 @@
             <div class="row">
                 <div class="col-md-2 ">
                     <div *ngFor="let prdImg of product.productImages" class="margin-top">
-                        <img class="card-img-top cursor" 
-                        src="data:{{prdImg.mime}};base64,{{prdImg.base64Image}}"
+                        <img class="card-img-top cursor" src="data:{{prdImg.mime}};base64,{{prdImg.base64Image}}"
                             (click)="setSelectedImage(prdImg)">
                     </div>
                 </div>

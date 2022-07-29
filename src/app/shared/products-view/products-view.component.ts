@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { WishListItem } from 'src/app/models/wishlist';
 import { WishListService } from 'src/app/service/wishlist.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products-view',
@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ProductsViewComponent implements OnInit {
   @Input() products!: Product[];
   @Input() categories!: Category[];
+
   wishListcount = 0;
   @Output() wishListCountChanged = new EventEmitter<number>();
 
@@ -26,9 +27,13 @@ export class ProductsViewComponent implements OnInit {
 
   addWishList(item: Product) {
     const model: WishListItem = { productId: item.id };
-    this.wishListService.CreateWishLists(model).subscribe({
-      complete: () => {}, // completeHandler
-      error: (errorRes: HttpErrorResponse) => {
+    this.wishListService.CreateWishLists(model).subscribe(
+      (s) => {
+        this.toastr.success(
+          `Added product "${item.name.substring(0, 15)}..." to your wishlist`
+        );
+      },
+      (errorRes: HttpErrorResponse) => {
         //we need to bind the error from API to UI.
         if (errorRes.status === 400) {
           this.toastr.info(
@@ -38,25 +43,20 @@ export class ProductsViewComponent implements OnInit {
             )}..." already added to your wishlist`
           );
         } else {
-          this.toastr.error('Something went wrong');
+          this.toastr.error('Something went wrong', 'Error');
         }
-      }, // errorHandler
-      next: () => {
-        this.toastr.success(
-          `Added product "${item.name.substring(0, 15)}..." to your wishlist`
-        );
       },
-    });
-
+      () => {}
+    );
     this.wishListcount = this.wishListcount + 1;
     this.wishListCountChanged.emit(this.wishListcount);
   }
 
-  getCategoryName(id: number): string {
-    return this.categories.find((f) => f.id === id)?.name || '';
+  getTitle(title: string) {
+    return `${title.substring(0, 60)}...`;
   }
 
-  getShortenTitle(title: string): string {
-    return `${title.substring(0, 50)}...`; // this is called template literal. We use back tick
+  getCategory(categoryId: number) {
+    return this.categories.find((f) => f.id == categoryId)?.name;
   }
 }

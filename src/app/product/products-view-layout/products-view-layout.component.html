@@ -1,0 +1,7 @@
+<div class="container margin-top">
+    <app-products-view-filter (onProductsFilterChanged)="emittedProducts($event)"
+        [categories]="categories"></app-products-view-filter>
+
+    <app-products-view-content [filteredProducts]="products" [categories]="categories"
+    ></app-products-view-content>
+</div>

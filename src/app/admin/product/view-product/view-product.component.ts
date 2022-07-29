@@ -11,7 +11,8 @@ import { ProductService } from 'src/app/service/product.service';
 })
 export class ViewProductComponent implements OnInit {
   products!: Product[];
-  showSpinner = false; // this is for delete feature purpose
+  showSpinner = false;
+
   constructor(
     private productService: ProductService,
     private toastr: ToastrService
@@ -22,14 +23,11 @@ export class ViewProductComponent implements OnInit {
   }
 
   getProducts() {
-    //this gives us the products that user owns. For now API returns newly created product but once we implement Authorization
-    //it returns only what you created
-    this.productService
-      .GetProductsByOwner()
-      .subscribe((s) => (this.products = s));
+    this.productService.GetProductsByOwner().subscribe((s) => {
+      this.products = s;
+    });
   }
 
-  //all logic is same as create product
   deleteProduct(id: number) {
     this.productService.DeleteProduct(id).subscribe({
       complete: () => {

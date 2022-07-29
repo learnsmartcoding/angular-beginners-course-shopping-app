@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { ProductRoutingModule, routedComponents } from './product-routing.module';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
-import {
-  ProductRoutingModule,
-  routedComponents,
-} from './product-routing.module';
+
 
 @NgModule({
-  imports: [CommonModule, FormsModule, SharedModule, ProductRoutingModule],
-  exports: [],
-  declarations: [routedComponents],
-  providers: [],
+    imports: [CommonModule, FormsModule, ProductRoutingModule, SharedModule],
+    exports: [],
+    declarations: [routedComponents, WishlistComponent],
+    providers: [],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ProductModule {}
+export class ProductModule { }

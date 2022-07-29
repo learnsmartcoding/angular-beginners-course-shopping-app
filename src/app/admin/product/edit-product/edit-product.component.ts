@@ -1,10 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
-import { ProductImages, Product } from 'src/app/models/product';
+import { Product, ProductImages } from 'src/app/models/product';
 import { CategoryService } from 'src/app/service/category.service';
 import { CustomValidators } from 'src/app/service/custom-validators';
 import { modelStateFormMapper } from 'src/app/service/modelStateFormMapper';
@@ -14,28 +14,23 @@ import { validateAllFormFields } from 'src/app/service/validateAllFormFields';
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
-  styleUrls: ['./edit-product.component.css'],
+  styleUrls: ['./edit-product.component.css']
 })
 export class EditProductComponent implements OnInit {
-  /*
-  Create and Edit components are almost same except 2 difference. 
-  For edit we need take the route param and find out the product id and then fetch that product details to load
-  once we have data, we patch existing form. so upon save instead of calling create we call update
-
-  */
   selectedPhoto!: ProductImages;
-  productId!: number;
+  productId!:number;
   errors: string[] = [];
   public form!: FormGroup;
   public categories: Category[] = [];
   showSpinner = false;
   existingProduct!: Product;
+
   model!: Product;
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private route: ActivatedRoute, // we fetch route param from this service
+    private route: ActivatedRoute,
     private toastr: ToastrService
   ) {}
 
@@ -43,7 +38,7 @@ export class EditProductComponent implements OnInit {
     this.getCategories();
     this.form = this.buildForm();
     const routedParams = this.route.snapshot.paramMap;
-    this.productId = Number(routedParams.get('productId'));
+    this.productId = Number(routedParams.get('productId'));   
   }
 
   getCategories() {
@@ -54,28 +49,28 @@ export class EditProductComponent implements OnInit {
   }
 
   getProductDetails() {
-    this.productService.GetProduct(this.productId).subscribe((data) => {
-      //now we should call patch method to patch the existing form
-      this.patchProduct(data);
-      this.existingProduct = data;
-      this.selectedPhoto = data.productImages[0];
-    });
+    this.productService.GetProduct(this.productId)
+      .subscribe((data) =>{
+        this.patchProduct(data);
+        this.existingProduct = data;
+        this.selectedPhoto = data.productImages[0];
+      });
   }
 
-  private patchProduct(product: Product) {
+  private patchProduct(product:Product){
+    
     this.control('name')?.patchValue(product.name);
     this.control('descriptions')?.patchValue(product.descriptions);
     this.control('isActive')?.patchValue(product.isActive);
     this.control('categoryId')?.patchValue(product.categoryId);
-    this.control('availableSince')?.patchValue(
-      new Date(product.availableSince).toISOString().slice(0, 10)
-    );
+    this.control('availableSince')?.patchValue(new Date(product.availableSince).toISOString().slice(0, 10));
     this.control('price')?.patchValue(product.price);
   }
 
+
   private buildForm(): FormGroup {
     return new FormGroup({
-      id: new FormControl(-1),
+      id:new FormControl(-1),
       name: new FormControl(null, [
         CustomValidators.required(),
         CustomValidators.minLength(
@@ -157,7 +152,7 @@ export class EditProductComponent implements OnInit {
   getModel(): Product {
     const formValue = this.form.getRawValue();
     return <Product>{
-      id: this.existingProduct.id,
+      id:this.existingProduct.id,
       name: formValue.name,
       descriptions: formValue.descriptions,
       isActive: true,
@@ -171,19 +166,15 @@ export class EditProductComponent implements OnInit {
     return this.form.get(name);
   }
 
-  //we use this method to hold the selected image from many images we have for product
   setSelectedImage(image: ProductImages) {
     this.selectedPhoto = image;
   }
 
-  imageUploadCompleted(isSuccess: boolean) {
-    if (isSuccess) {
-      this.getProductDetails(); //refresh product data to get new uploaded image
+  imageUploadCompleted(isSuccess:boolean) {
+    if(isSuccess){
+      this.getProductDetails();
     } else {
-      this.toastr.warning(
-        'Something went wrong while we processed your upload request',
-        'upload image failed'
-      );
+      this.toastr.warning("Something went wrong while we processed your upload request","upload image failed");
     }
   }
 }

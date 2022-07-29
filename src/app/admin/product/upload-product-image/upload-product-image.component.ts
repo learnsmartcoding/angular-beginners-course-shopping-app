@@ -9,12 +9,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  FormGroup,
   AbstractControl,
   FormControl,
-  FormGroup,
   Validators,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
 import { modelStateFormMapper } from 'src/app/service/modelStateFormMapper';
 import { ProductService } from 'src/app/service/product.service';
 import { validateAllFormFields } from 'src/app/service/validateAllFormFields';
@@ -25,14 +26,18 @@ import { validateAllFormFields } from 'src/app/service/validateAllFormFields';
   styleUrls: ['./upload-product-image.component.css'],
 })
 export class UploadProductImageComponent implements OnInit {
-  // now we have to implement upload part
   showSpinner = false;
-  @Input() productId!: number;
-  @ViewChild('myInput') myInputVariable!: ElementRef; //to access template variable from our UI
+  @Input()
+  productId!: number;
+  @ViewChild('myInput')
+  myInputVariable!: ElementRef;
+
   @Output()
-  public imageUploadCompleted = new EventEmitter<boolean>(); //this is after upload we will intimate parent component
+  public imageUploadCompleted = new EventEmitter<boolean>();
+
   public form!: FormGroup;
   public errors: string[] = [];
+  private destroy: Subject<void> = new Subject<void>();
 
   constructor(
     private productService: ProductService,
@@ -52,12 +57,11 @@ export class UploadProductImageComponent implements OnInit {
       productImage: new FormControl('', [Validators.required]),
     });
   }
+
   public Submit(files: File[]): void {
-    //we will pass File from UI using file upload type
     this.handleFileInput(files);
   }
 
-  //Lets allow only certain type of files to upload. this method is to check that
   validateFileExtension(file: string | undefined) {
     if (file === 'jpg' || file === 'png' || file === 'jpeg') return true;
     else return false;
@@ -65,17 +69,20 @@ export class UploadProductImageComponent implements OnInit {
 
   public handleFileInput(data: any): void {
     const files = data.files as File[];
-    this.errors = []; //reset error variable
+    this.errors = [];
+    
     validateAllFormFields(this.form);
+
     if (
       this.form.valid &&
       this.validateFileExtension(files[0].name.split('.').pop())
     ) {
-      //pass extension of file to see if that is valid
       this.showSpinner = true;
       this.toastr.info('Image being uploaded', 'In Progress');
-      const formData = new FormData(); // need to use this for file upload
-      Array.from(files).forEach((f) => formData.append('file', f)); //key value form
+      const formData = new FormData();
+
+      Array.from(files).forEach((f) => formData.append('file', f));
+
       this.productService
         .UploadProductImage(formData, this.productId)
         .subscribe({
@@ -99,14 +106,15 @@ export class UploadProductImageComponent implements OnInit {
     this.myInputVariable.nativeElement.value = '';
     this.errors = modelStateFormMapper(this.form, errorRes, {});
     this.showSpinner = false;
-    this.imageUploadCompleted.emit(false); // emit false for failure notification
+    this.imageUploadCompleted.emit(false);
   }
   onComplete() {
     this.toastr.info('Completed', 'Process Completed');
     this.showSpinner = false;
-    this.imageUploadCompleted.emit(true); // emit as success so parent component will know
+    this.imageUploadCompleted.emit(true);
   }
   onSaveComplete() {
     this.toastr.success('Image uploaded', 'Save Success');
   }
 }
+

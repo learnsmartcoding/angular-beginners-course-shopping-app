@@ -1,15 +1,29 @@
-<div class="container">
-    <h1>Browse all the products</h1>
-
-    <!-- So, to use input use  [] square bracket this is data binding -->
-    <app-products-view [products]="productList" [categories]="categories"></app-products-view>
+<!-- <div class="container">
+  <div class="row" *ngIf="products">
+    <div class="col-md-3" *ngFor="let item of products">
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+            <h6 class="border-bottom pb-2 mb-0">{{getCategory(item.categoryId)}}</h6>
+            <div class="card" style="width: 18rem;">
+                
+                <img   class="card-img-top" *ngFor="let prdImg of item.productImages" src="data:{{prdImg.mime}};base64,{{prdImg.base64Image}}"> 
+                <div class="card-body">
+                  <p class="card-text">{{getTitle(item.name)}}</p>
+                </div>
+              </div>
+        </div>
+    </div>   
 </div>
+<app-spinner *ngIf="!products"></app-spinner>
+</div> -->
+<div class="container">
+  <h2>Browse all latest products</h2>
+</div>
+<app-products-view [products]="products" [categories]="categories"> 
+</app-products-view>
 
 <div class="container">
-    <hr>
-    <h2>Your product wishlist</h2>
-
-    <app-products-view [products]="wishListProducts" [categories]="categories">
-    </app-products-view>
+  <hr>
+  <h2>Your product wishlist</h2>
 </div>
-
+<app-products-view [products]="wishListProducts" [categories]="categories"> 
+</app-products-view>

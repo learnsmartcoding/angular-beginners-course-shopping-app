@@ -8,5 +8,5 @@ export interface EnvironmentConfiguration {
         wishlist: string,
         owner: string
     },
-    cacheTimeInMinutes: number; // we will see this later
+    cacheTimeInMinutes: number;
 }
