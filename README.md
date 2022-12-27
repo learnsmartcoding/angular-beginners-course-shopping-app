@@ -66,4 +66,4 @@ E.g. <code>ng g c home</code>.
 
 ### API details
 API used to develop this project is below
-<code>https://lsc-essential-products.azurewebsites.net/swagger/index.html</code>
+<code>https://essentialproducts-api.azurewebsites.net/swagger/index.html</code>
