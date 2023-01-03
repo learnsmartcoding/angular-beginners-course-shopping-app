@@ -2,11 +2,12 @@ export interface EnvironmentConfiguration {
     env_name: string;
     production: boolean;
     apiUrl: string;    
-    apiEndpoints: {
+    apiEndpoints: {        
         category: string,
         product: string,
         wishlist: string,
-        owner: string
+        owner: string,
+        users: string
     },
     cacheTimeInMinutes: number;
 }

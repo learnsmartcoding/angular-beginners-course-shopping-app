@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Product, ProductImages } from 'src/app/models/product';
 import { CategoryService } from 'src/app/service/category.service';
@@ -176,5 +177,16 @@ export class EditProductComponent implements OnInit {
     } else {
       this.toastr.warning("Something went wrong while we processed your upload request","upload image failed");
     }
+  }
+
+  public isFormDirty(): boolean {
+    return this.form.dirty || this.form.touched;
+  }
+
+  canDeactivate():Observable<boolean> | boolean{
+    if(this.isFormDirty()){
+      return confirm('Are you sure to navigate from this page? you will lose your changes');
+    }
+    return true;
   }
 }

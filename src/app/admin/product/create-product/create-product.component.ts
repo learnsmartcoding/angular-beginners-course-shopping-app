@@ -7,6 +7,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { CategoryService } from 'src/app/service/category.service';
@@ -45,7 +46,34 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
+  setProductPrice(category: string) {
+    this.control('price')?.clearValidators();
+    if (+category === 1) {
+      this.control('price')?.setValidators([
+        CustomValidators.greaterThan(5, 'Price should be minimum of $5'),
+        CustomValidators.max(9000)
+      ]);
+    } else if (+category ===11) {
+      this.control('price')?.setValidators([
+        CustomValidators.greaterThan(3, 'Price should be minimum of $3'),
+        CustomValidators.max(9000)
+      ]);
+    } else {
+         this.control('price')?.setValidators([
+        CustomValidators.greaterThan(6, 'Price should be minimum of $6'),
+        CustomValidators.max(9000)
+      ]);
+    }
+  }
+
   private buildForm(): FormGroup {
+    const categoryControl = new FormControl(-1, [
+      CustomValidators.required(),
+      CustomValidators.min(1, 'Select a category for the product'),
+    ]);
+
+    categoryControl.valueChanges.subscribe((d) => this.setProductPrice(d));
+
     return new FormGroup({
       name: new FormControl(null, [
         CustomValidators.required(),
@@ -69,11 +97,8 @@ export class CreateProductComponent implements OnInit {
           'Product description should be maximum of length 8000'
         ),
       ]),
-      price: new FormControl(null, [
-        CustomValidators.greaterThan(4, 'Price should be minimum of $5'),
-        CustomValidators.max(9000),
-      ]),
-      categoryId: new FormControl(-1, [CustomValidators.required()]),
+      price: new FormControl(null),
+      categoryId: categoryControl,
       availableSince: new FormControl(new Date().toISOString().slice(0, 10), [
         CustomValidators.required(),
       ]),
@@ -143,5 +168,16 @@ export class CreateProductComponent implements OnInit {
       return this.form.get(name);
     }
     return null;
+  }
+
+  public isFormDirty(): boolean {
+    return this.form.dirty || this.form.touched;
+  }
+
+  canDeactivate():Observable<boolean> | boolean{
+    if(this.isFormDirty()){
+      return confirm('Are you sure to navigate from this page? you will lose your changes');
+    }
+    return true;
   }
 }
