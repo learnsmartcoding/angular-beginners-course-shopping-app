@@ -15,15 +15,16 @@
 </div>
 <app-spinner *ngIf="!products"></app-spinner>
 </div> -->
+
 <div class="container">
   <h2>Browse all latest products</h2>
 </div>
-<app-products-view [products]="products" [categories]="categories"> 
+<app-products-view [products]="products" [categories]="categories">
 </app-products-view>
 
 <div class="container">
   <hr>
   <h2>Your product wishlist</h2>
 </div>
-<app-products-view [products]="wishListProducts" [categories]="categories"> 
+<app-products-view [products]="wishListProducts" [categories]="categories">
 </app-products-view>

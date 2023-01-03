@@ -4,6 +4,7 @@ import { Category } from 'src/app/models/category';
 import { Product, ProductImages } from 'src/app/models/product';
 import { CategoryService } from 'src/app/service/category.service';
 import { ProductService } from 'src/app/service/product.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-detail',
@@ -22,10 +23,12 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    
     //this.productId = Number(this.route.snapshot.paramMap.get('productId')); //TODO subscribe to get route change    
     this.route.paramMap.subscribe((params) => {
       this.productId = Number(params.get('productId'));
@@ -63,6 +66,7 @@ export class ProductDetailComponent implements OnInit {
   getProductDetails() {
     this.productService.GetProduct(this.productId).subscribe((s) => {
       this.product = s;
+      this.titleService.setTitle(`Product details | ${this.product.name} | Show Essential Products | Learn Smart Coding `);
       this.selectedPhoto = this.product.productImages[0];
       this.aboutThisItem = this.product.descriptions.trim().split('.');
       this.filterSimilarItems();

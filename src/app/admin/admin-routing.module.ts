@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProductCreateGuard } from '../core/guards/product-can-activate.guard';
+import { CanComponentDeactivateGuard } from '../core/guards/product-deactivate.guard';
+
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
 import { UploadProductImageComponent } from './product/upload-product-image/upload-product-image.component';
@@ -9,8 +12,15 @@ const routes: Routes = [
   {
     path: 'product/create',
     component: CreateProductComponent,
+    canActivate: [ProductCreateGuard],
+    canDeactivate:[CanComponentDeactivateGuard]
   },
-  { path: 'product/edit/:productId', component: EditProductComponent },
+  {
+    path: 'product/edit/:productId',
+    component: EditProductComponent,
+    canActivate: [ProductCreateGuard],
+    canDeactivate:[CanComponentDeactivateGuard]
+  },
   { path: 'products/manage', component: ViewProductComponent },
 ];
 

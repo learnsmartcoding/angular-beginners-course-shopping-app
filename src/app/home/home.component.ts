@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Category } from '../models/category';
 import { Product } from '../models/product';
 import { WishListItem } from '../models/wishlist';
@@ -20,8 +21,11 @@ export class HomeComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private wishListService: WishListService
-  ) {}
+    private wishListService: WishListService,
+    private titleService: Title
+  ) {
+    titleService.setTitle('Welcome to Essential Products | Learn Smart Csoding');
+  }
 
   ngOnInit(): void {
     this.getCategories();
