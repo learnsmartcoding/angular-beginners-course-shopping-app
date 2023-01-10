@@ -78,7 +78,7 @@ export const msalConfig: Configuration = {
  */
 export const protectedResources = {
   todoListApi: {
-    endpoint: 'https://localhost:5001',//'https://lsc-essential-products.azurewebsites.net', //this will change if you deploy to server, server address will go here
+    endpoint: 'https://essentialproducts-api.azurewebsites.net', //this will change if you deploy to server, server address will go here
     scopes: [
       'https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.read',
       'https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.write',
