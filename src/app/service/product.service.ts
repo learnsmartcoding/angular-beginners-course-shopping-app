@@ -40,6 +40,11 @@ export class ProductService {
     const url = `${this.apiUrl}/${environment.apiEndpoints.product}/upload/${id}`;
     return this.http.post(url, file);
   }
+  UpdateProductImageModel(file: FormData, id: number): Observable<any> {    
+    //const url = 'https://localhost:7044/api/Account';
+    const url = `${this.apiUrl}/${environment.apiEndpoints.product}/${id}`;
+    return this.http.put(url, file);
+  }
 
   DeleteProduct(id: number): Observable<any> {
     const url = `${this.apiUrl}/${environment.apiEndpoints.product}/${id}`;

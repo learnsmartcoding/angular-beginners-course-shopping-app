@@ -5,6 +5,7 @@ import { CanComponentDeactivateGuard } from '../core/guards/product-deactivate.g
 
 import { CreateProductComponent } from './product/create-product/create-product.component';
 import { EditProductComponent } from './product/edit-product/edit-product.component';
+import { UploadProductImageModelComponent } from './product/upload-product-image-model/upload-product-image-model.component';
 import { UploadProductImageComponent } from './product/upload-product-image/upload-product-image.component';
 import { ViewProductComponent } from './product/view-product/view-product.component';
 
@@ -35,4 +36,5 @@ export const routedComponents = [
   EditProductComponent,
   ViewProductComponent,
   UploadProductImageComponent,
+  UploadProductImageModelComponent
 ];

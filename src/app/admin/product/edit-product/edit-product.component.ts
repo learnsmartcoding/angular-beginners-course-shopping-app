@@ -25,7 +25,7 @@ export class EditProductComponent implements OnInit {
   public categories: Category[] = [];
   showSpinner = false;
   existingProduct!: Product;
-
+  formData = new FormData();
   model!: Product;
 
   constructor(
@@ -103,6 +103,7 @@ export class EditProductComponent implements OnInit {
         CustomValidators.required(),
       ]),
       isActive: new FormControl(true),
+      productImage: new FormControl('', [CustomValidators.required()])
     });
   }
 
@@ -118,7 +119,8 @@ export class EditProductComponent implements OnInit {
       //will be tru only if all form property satisfies the validations
       const model = this.getModel();
       this.model = model;
-      this.productService.UpdateProduct(model).subscribe({
+      const formDataModel=this.getFormData();
+      this.productService.UpdateProductImageModel(formDataModel,model.id).subscribe({
         complete: () => {
           this.onComplete();
         }, // completeHandler
@@ -131,6 +133,29 @@ export class EditProductComponent implements OnInit {
       });
     }
   }
+
+  getFormData(){
+      const model = this.getModel();
+      this.formData.append('descriptions',model.descriptions);
+      this.formData.append('name',model.name);
+      this.formData.append('price',model.price.toString());
+      this.formData.append('categoryId',model.categoryId.toString());
+      this.formData.append('id',model.id.toString());
+      this.formData.append('isActive',model.isActive?'true':'false');
+      return this.formData;
+  }
+  validateFileExtension(file: string | undefined) {
+    if (file === 'jpg' || file === 'png' || file === 'jpeg') return true;
+    else return false;
+  }
+
+  public handleFileInput(data: any): void {
+
+    this.formData = new FormData();
+      const files = data.files as File[];          
+      Array.from(files).forEach((f) => this.formData.append('image', f));      
+  }
+
 
   onError(errorRes: HttpErrorResponse) {
     //we need to bind the error from API to UI.

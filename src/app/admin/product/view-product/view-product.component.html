@@ -24,7 +24,7 @@
             <tr *ngFor="let item of products" >
                 <td>
                     <div style="width: 8rem;">
-                        <img class="card-img-top cursor" *ngIf="item.productImages.length"
+                        <img class="card-img-top cursor" *ngIf="item.productImages?.length"
                             src="data:{{item.productImages[0].mime}};base64,{{item.productImages[0].base64Image}}">
                             <img *ngIf="!item.productImages.length" class="card-img-top"
                             src="../../../assets/lsc-logo-png.png">

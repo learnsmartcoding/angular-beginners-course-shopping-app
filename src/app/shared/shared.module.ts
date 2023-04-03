@@ -8,15 +8,25 @@ import { DisplayErrorsComponent } from './display-errors/display-errors.componen
 import { LabelErrorComponent } from './label-error/label-error.component';
 import { ReplaceStringPipe } from './pipes/string-replace.pipe';
 import { ToPascalPipe } from './pipes/to-pascal.pipe';
+import { PasswordStrengthDirective } from './directives/password-strength.directive ';
+import { HoverDirective } from './directives/app-hover.directive';
+import { ExternalLinkDirective } from './directives/external-link.directive';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule    
+    RouterModule
   ],
-  exports: [ProductsViewComponent, SpinnerComponent,DisplayErrorsComponent, LabelErrorComponent, ReplaceStringPipe,ToPascalPipe],
-  declarations: [ProductsViewComponent, SpinnerComponent,DisplayErrorsComponent, LabelErrorComponent, ReplaceStringPipe,ToPascalPipe],
+  exports: [ProductsViewComponent, SpinnerComponent, DisplayErrorsComponent, LabelErrorComponent, ReplaceStringPipe, ToPascalPipe,
+    ExternalLinkDirective,
+    HoverDirective,
+    PasswordStrengthDirective],
+  declarations: [ProductsViewComponent,
+    SpinnerComponent, DisplayErrorsComponent, LabelErrorComponent, ReplaceStringPipe, ToPascalPipe,
+    ExternalLinkDirective,
+    HoverDirective,
+    PasswordStrengthDirective],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class SharedModule {}
+export class SharedModule { }

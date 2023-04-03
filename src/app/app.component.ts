@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +12,5 @@ export class AppComponent {
   // ngOnInit(): void {
   //   this.isIframe = window !== window.parent && !window.opener;
   // }
+  
 }

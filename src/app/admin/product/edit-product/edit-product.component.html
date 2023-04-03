@@ -55,7 +55,13 @@
                         </div>
                     </div>
                 </div>
-
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="file" #myInput formControlName="productImage" id="file" required
+                            class="form-control" (change)="handleFileInput($event.target)">
+                    </div>
+                </div>
                 <br>
                 <div class="d-grid gap-2">
                     <button class="btn btn-success btn-block" type="submit">Save Product</button>
@@ -84,8 +90,11 @@
                     </div>
                 </div>
             </div>
-            <app-upload-product-image [productId]="productId" (imageUploadCompleted)="imageUploadCompleted($event)">
-            </app-upload-product-image>
+            <!-- <app-upload-product-image [productId]="productId" (imageUploadCompleted)="imageUploadCompleted($event)">
+            </app-upload-product-image> -->
+            <app-upload-product-image-model [productId]="productId"
+                (imageUploadCompleted)="imageUploadCompleted($event)">
+            </app-upload-product-image-model>
         </div>
         <div>
             <a class="nav-link" [routerLink]="['/admin/products/manage']">GO BACK</a>

@@ -5,7 +5,7 @@
                 <h6 class="border-bottom pb-2 mb-0">{{getCategory(item.categoryId)}}</h6>
                 <div class="card" style="width: 18rem;">
 
-                    <img *ngIf="item.productImages.length" class="card-img-top"
+                    <img *ngIf="item.productImages?.length" class="card-img-top"
                         src="data:{{item.productImages[0].mime}};base64,{{item.productImages[0].base64Image}}">
                     <img *ngIf="!item.productImages.length" class="card-img-top"
                         src="../../../assets/lsc-logo-png.png">

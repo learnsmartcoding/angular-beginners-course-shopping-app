@@ -7,7 +7,7 @@ import { EnvironmentConfiguration } from "src/app/models/environment-configurati
 export const environment: EnvironmentConfiguration = {
   env_name: 'dev',
   production: false,
-  apiUrl: 'https://essentialproducts-api.azurewebsites.net/api', //'https://localhost:5001/api',
+  apiUrl: 'https://essentialproducts-api.azurewebsites.net/api',//'https://localhost:5001/api',//
   apiEndpoints: {
     category: 'category',
     product: 'product',

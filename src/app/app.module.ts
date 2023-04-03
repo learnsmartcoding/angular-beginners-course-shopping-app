@@ -8,6 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProductModule } from './product/product.module';
+import { AdminModule } from './admin/admin.module';
+import { UserModule } from './user/user.module';
 
 
 // import { IPublicClientApplication, PublicClientApplication, InteractionType } from '@azure/msal-browser';
@@ -70,6 +73,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
+    UserModule
+    
     //MsalModule
   ],
   providers: [ 
