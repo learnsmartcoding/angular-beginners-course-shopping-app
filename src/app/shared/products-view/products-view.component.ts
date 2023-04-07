@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { WishListItem } from 'src/app/models/wishlist';
+import { LocalStorageService } from 'src/app/service/local-storage.service';
 import { WishListService } from 'src/app/service/wishlist.service';
 
 @Component({
@@ -20,12 +21,15 @@ export class ProductsViewComponent implements OnInit {
 
   constructor(
     private toastr: ToastrService,
-    private wishListService: WishListService
+    private wishListService: WishListService, 
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {}
 
+
   addWishList(item: Product) {
+    this.localStorageService.addToCart(item);
     const model: WishListItem = { productId: item.id };
     this.wishListService.CreateWishLists(model).subscribe(
       (s) => {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +12,16 @@ export class AppComponent {
   // ngOnInit(): void {
   //   this.isIframe = window !== window.parent && !window.opener;
   // }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    debugger;
+    $event.preventDefault();
+    $event.returnValue = '';
+  }
+
+  @HostListener('window:unload', ['$event'])
+  beforeunload($event: any) {
+    // Do cleanup here, if necessary
+  }
 }
