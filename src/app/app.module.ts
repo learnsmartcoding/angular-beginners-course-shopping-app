@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpInterceptorService } from './service/spinner-interceptor.service';
 
 
 // import { IPublicClientApplication, PublicClientApplication, InteractionType } from '@azure/msal-browser';
@@ -73,6 +74,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     //MsalModule
   ],
   providers: [ 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
 ],
   bootstrap: [AppComponent
     //,MsalRedirectComponent

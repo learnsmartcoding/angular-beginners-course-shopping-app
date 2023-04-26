@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { SpinnerService } from './service/spinner.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,8 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor(public spinnerService: SpinnerService){}
+  
   // isIframe = false;
 
   
